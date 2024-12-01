@@ -32,9 +32,9 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [hintPosition, setHintPosition] = useState({ top: 0, left: 0 });
 
-  const hintRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
-  const listRef = useRef<HTMLUListElement | null>(null);
+  const hintRef = useRef<HTMLUListElement | null>(null);
   const stateRef = useRef({ filteredHints, selectedHintIndex });
   // Ignore mouse events while keyboard is used to prevent hint selector jumps.
   const inputSourceRef = useRef<"keyboard" | "mouse">("keyboard");
@@ -66,11 +66,11 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
   );
 
   useEffect(() => {
-    if (!hintRef.current) {
+    if (!containerRef.current) {
       return;
     }
 
-    const textarea = hintRef.current.querySelector("textarea");
+    const textarea = containerRef.current.querySelector("textarea");
     if (textarea) {
       const handleKeyDown = (e: KeyboardEvent) => {
         inputSourceRef.current = "keyboard";
@@ -84,7 +84,7 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
                 prevIndex + 1,
                 filteredHints.length - 1
               );
-              listRef.current
+              hintRef.current
                 ?.querySelector(`li:nth-child(${nextIndex + 1})`)
                 ?.scrollIntoView({ block: "nearest" });
               return nextIndex;
@@ -93,7 +93,7 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
             e.preventDefault();
             setSelectedHintIndex((prevIndex) => {
               const nextIndex = Math.max(prevIndex - 1, 0);
-              listRef.current
+              hintRef.current
                 ?.querySelector(`li:nth-child(${nextIndex + 1})`)
                 ?.scrollIntoView({ block: "nearest" });
               return nextIndex;
@@ -191,11 +191,11 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
   };
 
   return (
-    <div ref={hintRef} style={{ ...defaultRootStyle, ...Root }}>
+    <div ref={containerRef} style={{ ...defaultRootStyle, ...Root }}>
       {wrapChildren(children)}
       {filteredHints.length > 0 && (
         <ul
-          ref={listRef}
+          ref={hintRef}
           style={{
             ...defaultContainerStyle,
             ...Container,
@@ -324,5 +324,5 @@ const getCaretCoordinates = (
     left: rect.left + window.scrollX,
   };
 };
-getCaretCoordinates(document.createElement("textarea"));
+
 export default Hint;
