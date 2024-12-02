@@ -111,7 +111,7 @@ The `Hint` component provides the following properties:
 
 <!-- badges -->
 
-[license-badge]: https://img.shields.io/npm/l/react-simple-code-hint.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/react-simple-code-hint.svg?style=flat-square?cachebuster=1
 [license]: https://opensource.org/licenses/MIT
 [version-badge]: https://img.shields.io/npm/v/react-simple-code-hint.svg?style=flat-square
 [package]: https://www.npmjs.com/package/react-simple-code-hint
