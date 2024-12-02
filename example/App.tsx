@@ -28,11 +28,17 @@ function App() {
   return (
     <main className="container">
       <div className="container__content">
-        <h1>react-simple-code-editor</h1>
-        <p>A simple no-frills code editor with syntax highlighting.</p>
+        <h1>react-simple-code-hint</h1>
+        <p>
+          A wrapper for{" "}
+          <a href="https://github.com/react-simple-code-editor/react-simple-code-editor">
+            react-simple-code-editor
+          </a>{" "}
+          that adds code hints.
+        </p>
         <a
           className="button"
-          href="https://github.com/react-simple-code-editor/react-simple-code-editor"
+          href="https://github.com/sbondaryev/react-simple-code-hint"
         >
           GitHub
         </a>

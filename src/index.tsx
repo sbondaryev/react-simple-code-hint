@@ -30,7 +30,13 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
   const [filteredHints, setFilteredHints] = useState<string[]>([]);
   const [selectedHintIndex, setSelectedHintIndex] = useState(0);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [hintPosition, setHintPosition] = useState({ top: 0, left: 0 });
+  const [hintPosition, setHintPosition] = useState({
+    top: 0,
+    left: 0,
+    maxHeight: 0,
+    maxWidth: 0,
+    isVisible: false,
+  });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
@@ -98,9 +104,15 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
                 ?.scrollIntoView({ block: "nearest" });
               return nextIndex;
             });
-          } else if (e.key === "Enter") {
+          } else if (e.key === "Enter" || e.key === "Tab") {
+            console.log("here");
             e.preventDefault();
+            e.stopPropagation();
             applyHint(filteredHints[selectedHintIndex]);
+          } else if (e.key === "Escape") {
+            e.preventDefault();
+            e.stopPropagation();
+            setFilteredHints([]);
           }
         }
       };
@@ -142,6 +154,37 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
     editorRef.current.focus();
   }, [cursorPosition]);
 
+  useEffect(() => {
+    if (
+      hintPosition.isVisible ||
+      !hintRef.current ||
+      !editorRef.current ||
+      !containerRef.current
+    ) {
+      return;
+    }
+    const hintRect = hintRef.current.getBoundingClientRect();
+    const editorRect = editorRef.current.getBoundingClientRect();
+    const containerRect = containerRef.current.getBoundingClientRect();
+
+    const hintBottom = hintPosition.top + hintRect.height;
+    const hintRight = hintPosition.left + hintRect.width;
+    const editorBottom = editorRect.bottom - containerRect.top;
+    const editorRight = editorRect.right - containerRect.left;
+
+    const adjustTop = hintBottom > editorBottom ? hintBottom - editorBottom : 0;
+    const adjustLeft = hintRight > editorRight ? hintRight - editorRight : 0;
+
+    setHintPosition({
+      ...hintPosition,
+      top: hintPosition.top - adjustTop,
+      left: hintPosition.left - adjustLeft,
+      maxHeight: editorRect.height,
+      maxWidth: editorRect.width,
+      isVisible: true,
+    });
+  }, [hintPosition]);
+
   const onEditorValueChange = (code: string): void => {
     if (!editorRef.current) {
       return;
@@ -165,7 +208,16 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
     if (filteredHints.length > 0) {
       setFilteredHints(filteredHints);
       const { top, left } = getCaretCoordinates(editorRef.current);
-      setHintPosition({ top, left });
+      const editorRect = editorRef.current.getBoundingClientRect();
+      setHintPosition({
+        top,
+        left,
+        maxHeight: editorRect.height,
+        maxWidth: editorRect.width,
+        isVisible: false,
+      });
+    } else {
+      setFilteredHints([]);
     }
   };
 
@@ -201,6 +253,10 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
             ...Container,
             top: hintPosition.top,
             left: hintPosition.left,
+            maxHeight: hintPosition.maxHeight,
+            maxWidth: hintPosition.maxWidth,
+            position: hintPosition.isVisible ? "absolute" : "fixed",
+            visibility: hintPosition.isVisible ? "initial" : "hidden",
           }}
         >
           {filteredHints.map((hint, index) => (
@@ -244,9 +300,7 @@ const defaultContainerStyle: CSSProperties = {
   listStyleType: "none",
   padding: 0,
   margin: 0,
-  width: 200,
   zIndex: 100,
-  maxHeight: "200px",
   overflowY: "auto",
 };
 

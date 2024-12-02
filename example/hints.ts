@@ -6,6 +6,7 @@ export default () => [
   "if",
   "else",
   "for",
+  "forEach",
   "while",
   "do",
   "switch",
@@ -31,7 +32,6 @@ export default () => [
   "in",
   "void",
   "delete",
-  "this",
   "await",
   "async",
   "Promise",
@@ -129,8 +129,6 @@ export default () => [
   "propTypes",
   "context",
   "refs",
-  "key",
-  "ref",
   "dangerouslySetInnerHTML",
 
   // JSX and HTML Attributes
