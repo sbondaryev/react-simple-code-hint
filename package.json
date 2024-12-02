@@ -1,6 +1,6 @@
 {
   "name": "react-simple-code-hint",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Adds customizable code hints to react-simple-code-editor.",
   "main": "index.js",
   "scripts": {
