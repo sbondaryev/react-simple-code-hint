@@ -4,8 +4,8 @@
   "description": "Adds customizable code hints to react-simple-code-editor.",
   "source": "src/index.html",
   "scripts": {
-    "build": "parcel build example/index.html --dist-dir",
-    "example": "parcel example/index.html"
+    "build": "rm -Rf docs && parcel build example/index.html --dist-dir docs --public-url='./'",
+    "example": "parcel example/index.html --dist-dir dist-example"
   },
   "keywords": [
     "code",
