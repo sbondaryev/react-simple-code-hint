@@ -4,7 +4,7 @@
   "description": "Adds customizable code hints to react-simple-code-editor.",
   "source": "src/index.html",
   "scripts": {
-    "build": "tsc && cp src/index.tsx dist/",
+    "build": "parcel build example/index.html --dist-dir",
     "example": "parcel example/index.html"
   },
   "keywords": [
