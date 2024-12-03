@@ -8,6 +8,8 @@ A wrapper for [react-simple-code-editor](https://github.com/react-simple-code-ed
 
 <a href="https://raw.githubusercontent.com/sbondaryev/react-simple-code-hint/main/demo/demo.gif"><img src="https://raw.githubusercontent.com/sbondaryev/react-simple-code-hint/main/demo/demo.gif" width="400"></a>
 
+[Try the Editor](https://sbondaryev.github.io/react-simple-code-hint/)
+
 ## Usage
 
 To use `react-simple-code-hint`, follow these steps:
@@ -39,22 +41,12 @@ To use `react-simple-code-hint`, follow these steps:
 
    ```jsx
    const MyCodeEditor = () => {
-     const [code, setCode] = useState(`
-       import React from "react";
-       import ReactDOM from "react-dom";
-
-       function App() {
-         return (
-           <h1>Hello world</h1>
-         );
-       }
-
-       ReactDOM.render(<App />, document.getElementById("root"));
-     `);
+     const [code, setCode] = useState("");
 
      return (
        <Hint hints={["hint1", "hint2", "other_hints"]}>
          <Editor
+           placeholder="Type some code…"
            value={code}
            onValueChange={(code) => setCode(code)}
            highlight={(code) => highlight(code, languages.jsx!, "jsx")}

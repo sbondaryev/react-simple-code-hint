@@ -1,8 +1,8 @@
 {
   "name": "react-simple-code-hint",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "description": "Adds customizable code hints to react-simple-code-editor.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc && cp src/index.tsx dist/",
     "example": "parcel example/index.html"
@@ -14,6 +14,13 @@
   ],
   "author": "Sergiy Bondaryev <sergiy.bondaryev@gmail.com> (https://github.com/sbondaryev/)",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbondaryev/react-simple-code-hint.git"
+  },
   "devDependencies": {
     "@types/prismjs": "^1.26.5",
     "@types/react": "^18.3.12",
