@@ -105,7 +105,6 @@ const Hint: React.FC<HintProps> = ({ children, hints, styles }) => {
               return nextIndex;
             });
           } else if (e.key === "Enter" || e.key === "Tab") {
-            console.log("here");
             e.preventDefault();
             e.stopPropagation();
             applyHint(filteredHints[selectedHintIndex]);
