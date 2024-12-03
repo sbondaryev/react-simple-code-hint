@@ -2,7 +2,7 @@
   "name": "react-simple-code-hint",
   "version": "0.1.0",
   "description": "Adds customizable code hints to react-simple-code-editor.",
-  "main": "dist/index.js",
+  "source": "src/index.html",
   "scripts": {
     "build": "tsc && cp src/index.tsx dist/",
     "example": "parcel example/index.html"
@@ -21,17 +21,18 @@
     "type": "git",
     "url": "git+https://github.com/sbondaryev/react-simple-code-hint.git"
   },
+  "dependencies": {
+    "dedent": "^1.5.3",
+    "prismjs": "^1.29.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-simple-code-editor": "^0.14.1"
+  },
   "devDependencies": {
     "@types/prismjs": "^1.26.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "dedent": "^1.5.3",
     "parcel": "^2.13.2",
-    "prismjs": "^1.29.0",
-    "process": "^0.11.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-simple-code-editor": "^0.14.1",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
